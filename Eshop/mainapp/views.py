@@ -13,6 +13,7 @@ def homeView(request):
         'carousel_images': CarouselImage.objects
             .filter(active=True)
             .order_by('id'),
+            
         'products' : Product.objects.all()
     }
 

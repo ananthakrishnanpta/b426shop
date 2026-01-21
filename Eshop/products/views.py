@@ -27,3 +27,35 @@ def searchProducts(request):
             'products' : search_results
         }
     return render(request, template_name=template, context = context)
+
+
+# CRUD Operations using Generic Class Based Views of Django
+
+from django.views.generic import ( CreateView, DetailView,
+                                   UpdateView, DeleteView )
+
+# ListView has already been implemented using a function above : productsView()
+
+class CreateProduct(CreateView):
+    model = Product
+    template_name = 'products/add_product.html'
+    fields = '__all__'
+    # redirection url for successful creation of resource
+    success_url = '/'
+
+class ProductDetail(DetailView):
+    model = Product
+    template_name = 'products/product_details.html'
+    context_object_name = 'product'
+
+class UpdateProduct(UpdateView):
+    model = Product
+    fields = '__all__'
+    template_name = 'products/update_product.html'
+    success_url = '/'
+
+class DeleteProduct(DeleteView):
+    model = Product
+    template_name = 'products/delete_product.html'
+    success_url = '/'
+
