@@ -4,30 +4,80 @@
 Product Details
 {% endblock %}
 
-
 {% block content %}
 
-<section class="d-flex row">
-    <div class="col">
-        <img src="{{product.thumbnail.url}}" class="w-100" alt="">
+<section id="product-detail-section" class="container py-5">
+    <div class="row g-4 align-items-start">
+        <div class="col-lg-6">
+            <div id="productImageCarousel" class="carousel slide product-carousel" data-bs-ride="carousel">
 
-    </div>
-    <div class="col">
-       <h2>
-        {{product.title}}
-       </h2>
-       <p>
-        {{product.desc}}
-       </p>
-       <p>
-        Rs. {{product.price}}
-       </p>
+                <div class="carousel-inner">
 
-       <div class="d-flex flex-row">
-        <a href="" class="btn btn-outline-primary">Add to Cart</a>
-        <a href="{% url 'edit_product' product.pk %}" class="btn btn-warning">Edit</a>
-        <a href="{% url 'delete_product' product.pk %}" class="btn btn-danger">Delete</a>
-       </div>
+                    {% for image in product.images.all %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+
+                        <!-- Image-level Actions -->
+                        <a href="" 
+                           class="btn btn-sm btn-outline-light image-btn image-btn-left">
+                            Edit
+                        </a>
+
+                        <a href="" 
+                           class="btn btn-sm btn-outline-danger image-btn image-btn-right">
+                            Delete
+                        </a>
+
+                        <img src="{{ image.img.url }}" class="d-block w-100 product-main-img" alt="">
+                    </div>
+                    {% endfor %}
+
+                </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#productImageCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+
+                <button class="carousel-control-next" type="button" data-bs-target="#productImageCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+
+            </div>
+        </div>
+
+        <!-- RIGHT: Product Details -->
+        <div class="col-lg-6">
+            <div class="product-info">
+
+                <!-- Thumbnail -->
+                <img src="{{ product.thumbnail.url }}" 
+                     class="product-thumbnail mb-3" 
+                     alt="{{ product.title }}">
+
+                <h2 class="product-title">
+                    {{ product.title }}
+                </h2>
+
+                <p class="product-desc">
+                    {{ product.desc }}
+                </p>
+
+                <h4 class="product-price">
+                    ₹ {{ product.price }}
+                </h4>
+
+                <!-- Product-level Actions -->
+                <div class="d-flex gap-2 mt-4 product-action-buttons">
+                    
+                    <a href="#" class="btn btn-primary">Add to Cart</a>
+
+                    <a href="{% url 'edit_product' product.pk %}" class="btn btn-warning">Edit Product</a>
+                    <a href="{% url 'delete_product' product.pk %}" class="btn btn-danger">Delete Product</a>
+                </div>
+
+            </div>
+        </div>
+
     </div>
 </section>
+
 {% endblock %}

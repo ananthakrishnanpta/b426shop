@@ -106,3 +106,89 @@ main {
     }
 
 }
+
+
+/* Product Detail Page */
+
+/* Thumbnail */
+
+.product-thumbnail {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+/* Carousel */
+
+.product-carousel {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: black;
+}
+
+.product-main-img {
+    height: 420px;
+    object-fit: contain;
+}
+
+/* Image Buttons */
+
+.image-btn {
+    position: absolute;
+    top: 12px;
+    z-index: 10;
+}
+
+.image-btn-left {
+    left: 12px;
+}
+
+.image-btn-right {
+    right: 12px;
+}
+
+/* Product Info */
+
+.product-info {
+    padding: 10px;
+}
+
+.product-title {
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.product-desc {
+    color: #555;
+    line-height: 1.6;
+}
+
+.product-price {
+    color: #198754;
+    font-weight: 600;
+    margin-top: 15px;
+}
+
+.product-action-buttons {
+    flex-wrap: wrap;
+}
+
+/* Delete product */
+/* Delete Product Page */
+
+#delete-product-section {
+    background-color: #ffffff;
+}
+
+.delete-product-card {
+    border-radius: 12px;
+}
+
+.delete-product-thumbnail {
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    object-fit: cover;
+}
