@@ -1,61 +1,89 @@
 <header>
-    <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+    <nav class="navbar navbar-expand-lg bg-dark sticky-top" data-bs-theme="dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
+
+            <!-- BRAND -->
+            <a class="navbar-brand text-warning fw-bold" href="{% url 'home_page' %}">
+                E-Shop
+            </a>
+
+            <!-- MOBILE TOGGLER -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
+                    data-bs-target="#navbarSupportedContent">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                <!-- LEFT NAV LINKS -->
+                <ul class="navbar-nav me-3 mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link {% if current_page == 'home' %} active {% endif %}" aria-current="page" href="{% url 'home_page' %}">Home</a>
+                        <a class="nav-link {% if current_page == 'home' %}active{% endif %}"
+                           href="{% url 'home_page' %}">Home</a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link {% if current_page == 'about' %} active {% endif %}" href="{% url 'about_page' %}">About</a>
+                        <a class="nav-link {% if current_page == 'about' %}active{% endif %}"
+                           href="{% url 'about_page' %}">About</a>
                     </li>
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
                             Manage
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{% url 'products' %}">Products</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <li><a class="dropdown-item" href="{% url 'carousel_list' %}">Carousels</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <!-- 🔍 SEARCH BAR -->
+                <form class="d-flex flex-grow-1 mx-lg-3"
+                      method="get"
+                      action="{% url 'search_products' %}">
+
+                    <input name="q"
+                           value="{{ query }}"
+                           class="form-control rounded-start"
+                           type="search"
+                           placeholder="Search cameras, lenses, accessories..."
+                           aria-label="Search">
+
+                    <button class="btn btn-warning rounded-end" type="submit">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </form>
+
+                <!-- RIGHT SIDE -->
+                <ul class="navbar-nav ms-auto align-items-center mb-2 mb-lg-0">
+
+                    <!-- 🛒 CART -->
+                    <li class="nav-item me-3 position-relative">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-cart3 fs-4"></i>
+                            <span class="cart-badge">0</span>
+                        </a>
+                    </li>
+
+                    <!-- 👤 ACCOUNT -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center"
+                           href="#" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle me-1"></i>
+                            Account
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#">Register</a></li>
+                            <li><a class="dropdown-item" href="#">Login</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="#">Logout</a></li>
                         </ul>
                     </li>
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Account
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="">Register</a></li>
-                            <li><a class="dropdown-item" href="#">Login</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                    </li>
                 </ul>
-                <form class="d-flex" role="search" 
-                method="get" action="{% url 'search_products' %}">
-                    <input name = 'q' value = '{{query}}'
-                    class="form-control me-2" type="search" 
-                    placeholder="Search Products" aria-label="Search" />
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
+
             </div>
         </div>
     </nav>

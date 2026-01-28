@@ -28,3 +28,33 @@ def aboutView(request):
         'current_page' : 'about'
     }
     return render(request, template, context)
+
+
+
+from django.views.generic import (
+    ListView, CreateView, UpdateView, DeleteView
+)
+from django.urls import reverse_lazy
+from .models import CarouselImage
+
+class CarouselImageListView(ListView):
+    model = CarouselImage
+    template_name = 'mainapp/carousel_list.html'
+    context_object_name = 'images'
+
+class CarouselImageCreateView(CreateView):
+    model = CarouselImage
+    fields = '__all__'
+    template_name = 'mainapp/carousel_form.html'
+    success_url = reverse_lazy('carousel_list')
+
+class CarouselImageUpdateView(UpdateView):
+    model = CarouselImage
+    fields = '__all__'
+    template_name = 'mainapp/carousel_form.html'
+    success_url = reverse_lazy('carousel_list')
+
+class CarouselImageDeleteView(DeleteView):
+    model = CarouselImage
+    template_name = 'mainapp/carousel_delete.html'
+    success_url = reverse_lazy('carousel_list')
