@@ -46,7 +46,8 @@ class CreateProduct(CreateView):
     template_name = 'products/add_product.html'
     fields = '__all__'
     # redirection url for successful creation of resource
-    success_url = '/'
+    def get_success_url(self):
+        return reverse('product_details', kwargs={'pk':self.object.pk})
 
 # -------
 from django.views.generic.edit import FormMixin
@@ -84,7 +85,9 @@ class UpdateProduct(UpdateView):
     model = Product
     fields = '__all__'
     template_name = 'products/update_product.html'
-    success_url = '/'
+    
+    def get_success_url(self):
+        return reverse('product_details', kwargs={'pk':self.object.pk})
 
 class DeleteProduct(DeleteView):
     model = Product
@@ -103,6 +106,10 @@ class EditProductImage(UpdateView):
     context_object_name = 'image'
     def get_success_url(self):
         return reverse('product_details', kwargs={'pk':self.object.product.pk})
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['product'] = self.object.product
+        return context
     
 class DeleteProductImage(DeleteView):
     model = ProductImage
@@ -111,4 +118,8 @@ class DeleteProductImage(DeleteView):
 
     def get_success_url(self):
         return reverse('product_details', kwargs={'pk':self.object.product.pk})
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['product'] = self.object.product
+        return context
     

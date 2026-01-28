@@ -9,39 +9,7 @@ Product Details
 <section id="product-detail-section" class="container py-5">
     <div class="row g-4 align-items-start">
         <div class="col-lg-6">
-            <div id="productImageCarousel" class="carousel slide product-carousel" data-bs-ride="carousel">
-
-                <div class="carousel-inner">
-
-                    {% for image in product.images.all %}
-                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
-
-                        <!-- Image-level Actions -->
-                        <a href="{% url 'edit_prod_image' image.pk %}" 
-                           class="btn btn-sm btn-outline-light image-btn image-btn-left">
-                            Edit
-                        </a>
-
-                        <a href="{% url 'del_prod_image' image.pk %}" 
-                           class="btn btn-sm btn-outline-danger image-btn image-btn-right">
-                            Delete
-                        </a>
-
-                        <img src="{{ image.img.url }}" class="d-block w-100 product-main-img" alt="">
-                    </div>
-                    {% endfor %}
-
-                </div>
-
-                <button class="carousel-control-prev" type="button" data-bs-target="#productImageCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon"></span>
-                </button>
-
-                <button class="carousel-control-next" type="button" data-bs-target="#productImageCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon"></span>
-                </button>
-
-            </div>
+            {% include 'products/includes/productImageCarousel.html' %}
         </div>
 
         <!-- RIGHT: Product Details -->
