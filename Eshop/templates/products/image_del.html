@@ -1,0 +1,22 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+Delete Product Image
+{% endblock %}
+
+
+{% block content %}
+<section>
+    Confirm delete !!! 
+    Product : {{image.product.title}}
+</section>
+<section>
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

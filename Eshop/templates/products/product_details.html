@@ -17,12 +17,12 @@ Product Details
                     <div class="carousel-item {% if forloop.first %}active{% endif %}">
 
                         <!-- Image-level Actions -->
-                        <a href="" 
+                        <a href="{% url 'edit_prod_image' image.pk %}" 
                            class="btn btn-sm btn-outline-light image-btn image-btn-left">
                             Edit
                         </a>
 
-                        <a href="" 
+                        <a href="{% url 'del_prod_image' image.pk %}" 
                            class="btn btn-sm btn-outline-danger image-btn image-btn-right">
                             Delete
                         </a>
@@ -78,6 +78,13 @@ Product Details
         </div>
 
     </div>
+</section>
+<section>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit" class="btn btn-success">Upload</button>
+    </form>
 </section>
 
 {% endblock %}

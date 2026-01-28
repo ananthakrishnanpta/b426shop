@@ -1,5 +1,5 @@
-from django.shortcuts import render
-
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from .models import Product
 
 # Create your views here.
@@ -26,6 +26,11 @@ def searchProducts(request):
             'query' : query,
             'products' : search_results
         }
+    else:
+        context = {
+            'query' : query,
+            'products' : None
+        }
     return render(request, template_name=template, context = context)
 
 
@@ -43,15 +48,36 @@ class CreateProduct(CreateView):
     # redirection url for successful creation of resource
     success_url = '/'
 
-class ProductDetail(DetailView):
+# -------
+from django.views.generic.edit import FormMixin
+# This mixin provides ability to render forms from the `form_class`
+from .forms import ProductImageForm
+
+class ProductDetail(FormMixin, DetailView):
     model = Product
     template_name = 'products/product_details.html'
     context_object_name = 'product'
+    # providing form class for Product Image
+    form_class = ProductImageForm
 
+    def get_success_url(self):
+        return reverse('product_details', kwargs={'pk':self.object.pk})
+    
     # overriding the queryset to pre-fetch 
     # and add the product images alongside products
     def get_queryset(self):
-        return Product.objects.prefetch_related('images')
+        return Product.objects.prefetch_related('images')   
+    
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+
+        if form.is_valid():
+            image = form.save(commit = False)
+            image.product = self.object 
+            image.save()
+            return redirect(self.get_success_url())
+
 
 
 class UpdateProduct(UpdateView):
@@ -65,3 +91,24 @@ class DeleteProduct(DeleteView):
     template_name = 'products/delete_product.html'
     success_url = '/'
 
+
+
+# Edit Product Image
+from .models import ProductImage
+
+class EditProductImage(UpdateView):
+    model = ProductImage
+    template_name = 'products/image_edit.html'
+    fields = '__all__'
+    context_object_name = 'image'
+    def get_success_url(self):
+        return reverse('product_details', kwargs={'pk':self.object.product.pk})
+    
+class DeleteProductImage(DeleteView):
+    model = ProductImage
+    template_name = 'products/image_del.html'
+    context_object_name = 'image'
+
+    def get_success_url(self):
+        return reverse('product_details', kwargs={'pk':self.object.product.pk})
+    
