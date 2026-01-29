@@ -71,14 +71,26 @@
                         <a class="nav-link dropdown-toggle d-flex align-items-center"
                            href="#" data-bs-toggle="dropdown">
                             <i class="bi bi-person-circle me-1"></i>
-                            Account
+                            {% if user.is_authenticated %}
+                                {{user.username.capitalize}}
+                            {% else %}
+                                Hi User!
+                            {% endif %}
                         </a>
 
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="#">Register</a></li>
-                            <li><a class="dropdown-item" href="#">Login</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item text-danger" href="#">Logout</a></li>
+                            {% if user.is_authenticated %}
+                            <li>
+                                <form action="{% url 'logout' %}" method="post">
+                                    {% csrf_token %}
+                                    <button class="dropdown-item text-danger">Logout</button>
+                                </form>
+                            </li>
+                            {% else %}
+                            <li><a class="dropdown-item" href="{% url 'signup' %}">Register</a></li>
+                            <li><a class="dropdown-item" href="{% url 'signin' %}">Login</a></li>
+                            {% endif %}
+                            
                         </ul>
                     </li>
 
