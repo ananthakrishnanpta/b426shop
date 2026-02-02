@@ -30,7 +30,7 @@ main {
             border-radius: 50%;
             line-height: 1;
         }
-/* Home carousel */
+/* 🏠 Home carousel */
 
 #home-carousel-section {
     margin-bottom: 40px;
@@ -86,7 +86,7 @@ main {
         transition: transform 0.2s ease, box-shadow 1s ease;
         border: 0px solid;
         padding: 0;
-        background-color: rgb(255, 255, 196);
+        background-color: rgb(231, 231, 231);
     }
     
     .product-card:hover {
