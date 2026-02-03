@@ -1,18 +1,38 @@
 // Cart handling
 
+
+
 // Add to cart
 
 const products_container = document.getElementById('products-container');
 
 const cart_count = document.getElementById("cart-count");
+    // load current value
+    
+    async function loadCartCount(){
+        const countUrl = cart_count.dataset.countUrl;
+        try {
+            const result = await fetch(countUrl);
+            const data = await result.json();
+            cart_count.innerText = data.cart_count;
+        }
+        catch(error){
+            console.error(`Cart count fetch error : ${error}`)
+        }
+    }
+    if (cart_count){
+    loadCartCount();
+    }
 
 const csrfToken = document.querySelector("[name = csrfmiddlewaretoken]").value
 
-// add to cart url 
-const addUrl = products_container.dataset.addUrl;
+
+
 
 // adding event listener onto product cards through their parent container
-
+if(products_container){
+    // add to cart url 
+    const addUrl = products_container.dataset.addUrl;
 products_container.addEventListener('click', async function (event) {
 
     if (!event.target.classList.contains('add-to-cart')) {
@@ -56,4 +76,6 @@ products_container.addEventListener('click', async function (event) {
         btn.innerText = "Add to Cart";
     }
 });
+}
+
 
