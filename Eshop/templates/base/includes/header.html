@@ -27,6 +27,8 @@
                            href="{% url 'about_page' %}">About</a>
                     </li>
 
+                    <!-- Show only to staff or admin -->
+                     {% if user.is_staff %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
                             Manage
@@ -36,6 +38,7 @@
                             <li><a class="dropdown-item" href="{% url 'carousel_list' %}">Carousels</a></li>
                         </ul>
                     </li>
+                    {% endif %}
                 </ul>
 
                 <!-- 🔍 SEARCH BAR -->

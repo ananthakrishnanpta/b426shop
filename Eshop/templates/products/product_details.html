@@ -5,8 +5,11 @@ Product Details
 {% endblock %}
 
 {% block content %}
-
-<section id="product-detail-section" class="container py-5" data-product-id = "{{product.id}}">
+{% csrf_token %}
+<section id="product-detail-section" class="container py-5" data-product-id="{{product.id}}"
+  data-add-url="{% url 'add_to_cart' %}" data-plus-url="{% url 'increase_cart_item' %}"
+  data-minus-url="{% url 'decrease_cart_item' %}" data-remove-url="{% url 'remove_cart_item' %}"
+  data-qty-url="{% url 'cart_item_qty' %}">
   <div class="row g-4 align-items-start">
     <div class="col-lg-6">
       {% include 'products/includes/productImageCarousel.html' %}
@@ -34,17 +37,21 @@ Product Details
         <!-- Product-level Actions -->
         <div class="d-flex gap-2 mt-4 product-action-buttons">
 
-          {% if product.stock > 0 %}
-          <button class="btn btn-sm btn-success add-to-cart">
-            Add to Cart
-          </button>
-          {% else %}
-          <button class="btn btn-sm btn-secondary w-100" disabled>
-            Out of Stock
-          </button>
-          {% endif %}
+
+          {% if user.is_staff %}
           <a href="{% url 'edit_product' product.pk %}" class="btn btn-warning">Edit Product</a>
           <a href="{% url 'delete_product' product.pk %}" class="btn btn-danger">Delete Product</a>
+          {% else %}
+            {% if product.stock > 0 %}
+            <button class="btn btn-sm btn-success add-to-cart">
+              Add to Cart
+            </button>
+            {% else %}
+            <button class="btn btn-sm btn-secondary w-100" disabled>
+              Out of Stock
+            </button>
+            {% endif %}
+          {% endif %}
         </div>
 
       </div>

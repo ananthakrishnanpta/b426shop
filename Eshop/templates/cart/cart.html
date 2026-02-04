@@ -3,8 +3,11 @@
 {% block title %}My Cart{% endblock %}
 
 {% block content %}
-
-<section id="cart-page" class="container py-5">
+{% csrf_token %}
+<section id="cart-page" class="container py-5"
+data-plus-url="{% url 'increase_cart_item' %}"
+data-minus-url="{% url 'decrease_cart_item' %}"
+data-remove-url="{% url 'remove_cart_item' %}">
 
     <h2 class="cart-title">🛒 My Cart</h2>
 
